@@ -2,7 +2,7 @@
 
 namespace Training\Jobs\Model\ResourceModel;
 
-use \Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * Department post mysql resource
