@@ -91,6 +91,39 @@
     <!-- Begin 3: Création de nos colonnes -->
     <!-- Columns -->
     <columns name="jobs_department_columns">
+
+        <!-- Begin 4: Checkboxes et Bookmarks -->
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <!-- Bookmarks behaviour -->
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="controlVisibility" xsi:type="boolean">true</item>
+                    <!-- Bookmarks behaviour -->
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+
+        <!-- Add columns with checkboxes -->
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <!-- End 4: Checkboxes et Bookmarks -->
+
         <!-- ID Column -->
         <column name="entity_id">
             <argument name="data" xsi:type="array">
@@ -117,6 +150,20 @@
                 </item>
             </argument>
         </column>
+
+        <!-- Begin 5: Actions de colonnes(Editer et Supprimer) -->
+        <!-- Action columns -->
+        <actionsColumn name="actions" class="Training\Jobs\Ui\Component\Listing\Column\DepartmentActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+        <!-- End 5: Actions de colonnes(Editer et Supprimer) -->
+
     </columns>
     <!-- End 3: Création de nos colonnes -->
 
