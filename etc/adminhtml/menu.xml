@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+
+    <!--  Ajout de menu dans le BO dand une section existante : content  -->
+    <!-- <menu>
+        <add id="Training_Jobs::job_head" title="Jobs" module="Training_Jobs" sortOrder="100" parent="Magento_Backend::content" resource="Training_Jobs::job_head" />
+        <add id="Training_Jobs::department" title="Department" module="Training_Jobs" sortOrder="10" parent="Training_Jobs::job_head" action="jobs/department" resource="Training_Jobs::job" />
+        <add id="Training_Jobs::job" title="Jobs" module="Training_Jobs" sortOrder="20" parent="Training_Jobs::job_head" action="jobs/job" resource="Training_Jobs::job" />
+    </menu> -->
+
+    <!-- Ajout de menu dans le BO dand une nouvelle section -->
+    <menu>
+        <add id="Training_Jobs::job_head" title="Jobs" module="Training_Jobs" sortOrder="100" resource="Training_Jobs::job_head" />
+        <add id="Training_Jobs::department" title="Department" module="Training_Jobs" sortOrder="10" parent="Training_Jobs::job_head" action="jobs/department" resource="Training_Jobs::job" />
+        <add id="Training_Jobs::job" title="Jobs" module="Training_Jobs" sortOrder="20" parent="Training_Jobs::job_head" action="jobs/job" resource="Training_Jobs::job" />
+    </menu>
+</config>
