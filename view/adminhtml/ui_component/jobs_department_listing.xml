@@ -85,6 +85,56 @@
                 </item>
             </argument>
         </container>
+
+        <!-- Begin 6: Ajout de filtres dans une grid -->
+        <!-- Filters -->
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.listing_top.bookmarks
+                        </item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.listing_top.listing_filters
+                        </item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">
+                                jobs_department_listing.jobs_department_listing.listing_top.bookmarks:current.columns.${ $.index }.visible
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <!--  HERE   HERE   HERE  -->
+        </filters>
+        <!-- End 6: Ajout de filtres dans une grid -->
+
+        <!-- Begin 7: Ajout d’un filtre fulltext dans une grid -->
+        <!-- Filter Search -->
+        <filterSearch name="fulltext">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="provider" xsi:type="string">
+                        jobs_department_listing.jobs_department_listing_data_source
+                    </item>
+                    <item name="chipsProvider" xsi:type="string">
+                        jobs_department_listing.jobs_department_listing.listing_top.listing_filters_chips
+                    </item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.listing_top.bookmarks
+                        </item>
+                        <item name="namespace" xsi:type="string">current.search</item>
+                    </item>
+                </item>
+            </argument>
+        </filterSearch>
+        <!-- End 7: Ajout d’un filtre fulltext dans une grid -->
+
     </container>
     <!-- End 2: Création du container listing_top -->
 
