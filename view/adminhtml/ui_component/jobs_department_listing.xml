@@ -10,9 +10,13 @@
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <!-- we define a provider -->
-            <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing_data_source</item>
+            <item name="provider" xsi:type="string">
+                jobs_department_listing.jobs_department_listing_data_source
+            </item>
             <!-- same string as above -->
-            <item name="deps" xsi:type="string">jobs_department_listing.jobs_department_listing_data_source</item>
+            <item name="deps" xsi:type="string">
+                jobs_department_listing.jobs_department_listing_data_source
+            </item>
         </item>
 
         <!-- Begin 1: Ajout d’un bouton « Add new » -->
@@ -78,7 +82,9 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="columnsData" xsi:type="array">
-                        <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.jobs_department_columns</item>
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.jobs_department_columns
+                        </item>
                     </item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
                     <item name="displayArea" xsi:type="string">dataGridActions</item>
@@ -135,6 +141,53 @@
         </filterSearch>
         <!-- End 7: Ajout d’un filtre fulltext dans une grid -->
 
+        <!-- Begin 8: Ajout des actions de masse (massActions) dans un grid -->
+        <!-- Mass action -->
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">
+                         jobs_department_listing.jobs_department_listing.jobs_department_columns.ids
+                    </item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="jobs/department/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <!-- End 8: Ajout des actions de masse (massActions) dans un grid -->
+
+        <!-- Begin 9: Ajout de pagination -->
+        <!-- Paging -->
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.listing_top.bookmarks
+                        </item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">
+                        jobs_department_listing.jobs_department_listing.jobs_department_columns.ids
+                    </item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                </item>
+            </argument>
+        </paging>
+        <!-- End 9: Ajout de pagination -->
+
     </container>
     <!-- End 2: Création du container listing_top -->
 
@@ -147,14 +200,18 @@
             <item name="config" xsi:type="array">
                 <!-- Bookmarks behaviour -->
                 <item name="storageConfig" xsi:type="array">
-                    <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                    <item name="provider" xsi:type="string">
+                        jobs_department_listing.jobs_department_listing.listing_top.bookmarks
+                    </item>
                     <item name="namespace" xsi:type="string">current</item>
                 </item>
                 <item name="childDefaults" xsi:type="array">
                     <item name="controlVisibility" xsi:type="boolean">true</item>
                     <!-- Bookmarks behaviour -->
                     <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                        <item name="provider" xsi:type="string">
+                            jobs_department_listing.jobs_department_listing.listing_top.bookmarks
+                        </item>
                         <item name="root" xsi:type="string">columns.${ $.index }</item>
                         <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
                     </item>
