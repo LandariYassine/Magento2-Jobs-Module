@@ -88,5 +88,6 @@
                 Training\Jobs\Model\ResourceModel\Job
             </argument>
         </arguments>
+        
     </virtualType>
 </config>

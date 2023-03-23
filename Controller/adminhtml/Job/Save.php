@@ -50,14 +50,14 @@ class Save extends Action
             if ( $data ) {
                 /** @var Job $model */
                 $model = $this->_model;
-
+//  var_dump($data);exit;
                 $id = $this->getRequest()->getParam( 'id' );
                 if ( $id ) {
                     $model->load( $id );
                 }
-
+ // var_dump($data);exit;
                 $model->setData( $data );
-
+             //   var_dump($model->getData());exit;
                 $this->_eventManager->dispatch(
                     'jobs_job_prepare_save',
                     [ 'job' => $model, 'request' => $this->getRequest() ]

@@ -38,7 +38,7 @@ class UpgradeData implements UpgradeDataInterface
         $installer->startSetup();
 
         // Action to do if module version is less than 1.0.0.1
-        if (version_compare($context->getVersion(), '1.0.0.1') < 0) {
+        if (version_compare($context->getVersion(), '1.0.0.3') < 0) {
             $departments = [
                 [
                     'name' => 'Marketing',

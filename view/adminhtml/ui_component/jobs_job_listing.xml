@@ -1,126 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
+<?xml version="1.0" ?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
     <!-- Integration -->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <!-- we define a provider -->
-            <item name="provider" xsi:type="string">
-                jobs_job_listing.jobs_job_listing_data_source
-            </item>
-            <!-- same string as above -->
-            <item name="deps" xsi:type="string">
-                jobs_job_listing.jobs_job_listing_data_source
-            </item>
+            <item name="provider" xsi:type="string">jobs_job_listing.jobs_job_listing_data_source</item>
         </item>
-
-        <!-- Begin 1: Ajout d’un bouton « Add new » -->
-        <!-- define column type -->
-        <item name="spinner" xsi:type="string">jobs_job_columns</item>
-        <!-- Button to add new item -->
-        <item name="buttons" xsi:type="array">
-            <item name="add" xsi:type="array">
-                <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New job</item>
-                <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/new</item>                <!-- magento will translate it by jobs/job/new -->
-            </item>
-        </item>
-        <!-- End 1: Ajout d’un bouton « Add new » -->
-
     </argument>
-    <!-- Data source -->
-    <dataSource name="jobs_job_listing_data_source">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">JobGridDataProvider</argument>            <!-- Data provider class -->
-            <argument name="name" xsi:type="string">jobs_job_listing_data_source</argument>            <!-- provider defined above -->
-            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>            <!-- Primary key -->
-            <argument name="requestFieldName" xsi:type="string">id</argument>            <!-- URL name parameter -->
+    <settings>
+        <spinner>jobs_job_columns</spinner>
+        <deps>
+            <dep>jobs_job_listing.jobs_job_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <!-- Button to add new item -->
+            <button name="add">
+                <!-- magento will translate it by jobs/job/new -->
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New job</label>
+            </button>
+        </buttons>
+    </settings>
 
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
-                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                    <item name="storageConfig" xsi:type="array">
-                        <!-- Primary key column name -->
-                        <item name="indexField" xsi:type="string">entity_id</item>
-                    </item>
-                </item>
-            </argument>
-        </argument>
+    <!-- Data source -->
+    <dataSource name="jobs_job_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+
+        <dataProvider name="jobs_job_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
     </dataSource>
 
-    <!-- Begin 1: Création du container listing_top -->
     <!-- Container Listing Top -->
-    <container name="listing_top">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="template" xsi:type="string">ui/grid/toolbar</item>
-            </item>
-        </argument>
-        <!-- Button to manage views -->
-        <bookmark name="bookmarks">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
-                    <item name="displayArea" xsi:type="string">dataGridActions</item>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="mui/bookmark/save"/>
-                        <item name="deleteUrl" xsi:type="url" path="mui/bookmark/delete"/>
-                        <item name="namespace" xsi:type="string">jobs_job_listing</item>
-                    </item>
-                </item>
-            </argument>
-        </bookmark>
-        <!-- Button to manage columns -->
-        <container name="columns_controls">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="columnsData" xsi:type="array">
-                        <item name="provider" xsi:type="string">
-                            jobs_job_listing.jobs_job_listing.jobs_job_columns
-                        </item>
-                    </item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
-                    <item name="displayArea" xsi:type="string">dataGridActions</item>
-                </item>
-            </argument>
-        </container>
-
-        <!-- Begin 6: Ajout de filtres dans une grid -->
-        <!-- Filters -->
-        <filters name="listing_filters">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">
-                            jobs_job_listing.jobs_job_listing.listing_top.bookmarks
-                        </item>
-                        <item name="namespace" xsi:type="string">current.filters</item>
-                    </item>
-                    <item name="childDefaults" xsi:type="array">
-                        <item name="provider" xsi:type="string">
-                            jobs_job_listing.jobs_job_listing.listing_top.listing_filters
-                        </item>
-                        <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">
-                                jobs_job_listing.jobs_job_listing.listing_top.bookmarks:current.columns.${ $.index }.visible
-                            </item>
-                        </item>
-                    </item>
-                </item>
-            </argument>
-            <!--  HERE   HERE   HERE  -->
-
-        </filters>
-        <!-- End 6: Ajout de filtres dans une grid -->
-
-        <!-- Begin 7: Ajout d’un filtre fulltext dans une grid -->
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
         <!-- Filter Search -->
         <filterSearch name="fulltext">
             <argument name="data" xsi:type="array">
@@ -140,17 +64,13 @@
                 </item>
             </argument>
         </filterSearch>
-        <!-- End 7: Ajout d’un filtre fulltext dans une grid -->
-
-        <!-- Begin 8: Ajout des actions de masse (massActions) dans un grid -->
         <!-- Mass action -->
         <massaction name="listing_massaction">
             <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">
-                        jobs_job_listing.jobs_job_listing.jobs_job_columns.ids
-                    </item>
-                    <item name="indexField" xsi:type="string">entity_id</item>
+                <item name="data" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">jobs_job_listing.jobs_job_listing.jobs_job_columns.ids</item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                    <item name="indexField" xsi:type="string">primary_id</item>
                 </item>
             </argument>
             <action name="delete">
@@ -158,194 +78,127 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">delete</item>
                         <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="jobs/job/massDelete"/>
+                        <item name="url" xsi:type="url" path="*/*/massDelete"/>
                         <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Delete items</item>
-                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                            <item name="title" xsi:type="string" translate="true">Delete Job?</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete the selected job?</item>
                         </item>
                     </item>
                 </argument>
             </action>
         </massaction>
-        <!-- End 8: Ajout des actions de masse (massActions) dans un grid -->
-
-        <!-- Begin 9: Ajout de pagination -->
+        <!-- Button to manage views -->
+        <bookmark name="bookmarks"/>
+        <!-- Button to manage columns -->
+        <columnsControls name="columns_controls"/>
+        <!-- Filters -->
+        <filters name="listing_filters"/>
         <!-- Paging -->
-        <paging name="listing_paging">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">
-                            jobs_job_listing.jobs_job_listing.listing_top.bookmarks
-                        </item>
-                        <item name="namespace" xsi:type="string">current.paging</item>
-                    </item>
-                    <item name="selectProvider" xsi:type="string">
-                        jobs_job_listing.jobs_job_listing.jobs_job_columns.ids
-                    </item>
-                    <item name="displayArea" xsi:type="string">bottom</item>
-                </item>
-            </argument>
-        </paging>
-    </container>
-    <!-- End 9: Ajout de pagination -->
+        <paging name="listing_paging"/>
+    </listingToolbar>
 
-    <!-- End 2: Création du container listing_top -->
-
-    <!-- Begin 3: Création de nos colonnes -->
-    <!-- Columns -->
+    <!-- Adding columns -->
     <columns name="jobs_job_columns">
-
-        <!-- Begin 4: Checkboxes et Bookmarks -->
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <!-- Bookmarks behaviour -->
-                <item name="storageConfig" xsi:type="array">
-                    <item name="provider" xsi:type="string">
-                        jobs_job_listing.jobs_job_listing.listing_top.bookmarks
-                    </item>
-                    <item name="namespace" xsi:type="string">current</item>
-                </item>
-                <item name="childDefaults" xsi:type="array">
-                    <item name="controlVisibility" xsi:type="boolean">true</item>
-                    <!-- Bookmarks behaviour -->
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">
-                            jobs_job_listing.jobs_job_listing.listing_top.bookmarks
-                        </item>
-                        <item name="root" xsi:type="string">columns.${ $.index }</item>
-                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
-                    </item>
-                </item>
-            </item>
-        </argument>
-
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">jobs_job_listing.jobs_job_listing.jobs_job_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </editorConfig>
+        </settings>
         <!-- Add columns with checkboxes -->
         <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
-                    <item name="indexField" xsi:type="string">entity_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
         </selectionsColumn>
-        <!-- End 4: Checkboxes et Bookmarks -->
-
         <!-- ID Column -->
         <column name="entity_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
-                    <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">ID</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
         </column>
-
         <!-- Title Column -->
         <column name="title">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Title</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
         </column>
-
         <!-- Type Column -->
         <column name="type">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Type</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <label translate="true">type</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
         </column>
-
         <!-- Location Column -->
         <column name="location">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Location</item>
-                </item>
-            </argument>
+            <settings>
+                <filter>text</filter>
+                <label translate="true">location</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
         </column>
-
         <!-- Date Column / Date type -->
-        <column name="date" class="Magento\Ui\Component\Listing\Columns\Date">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">dateRange</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
-                    <item name="dataType" xsi:type="string">date</item>
-                    <item name="label" xsi:type="string" translate="true">Date</item>
-                    <item name="dateFormat" xsi:type="string" translate="true">MMM dd, YYYY</item>
-                </item>
-            </argument>
+        <column name="date" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Date</label>
+                <dateFormat>MMMM d, Y</dateFormat>                <!--  this is the dateformat you can specify -->
+            </settings>
         </column>
-
         <!-- Status Column / Custom Source -->
-        <column name="status">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Training\Jobs\Model\Source\Job\Status</item>
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="editor" xsi:type="string">select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
-                </item>
-            </argument>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Training\Jobs\Model\Source\Job\Status"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+            </settings>
         </column>
-
         <!-- Department Column / Custom Source on DB -->
-        <column name="department_id">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Training\Jobs\Model\Source\Department</item>
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="editor" xsi:type="string">select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="label" xsi:type="string" translate="true">Department</item>
-                </item>
-            </argument>
+        <column name="department_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Training\Jobs\Model\Source\Department"/>
+                <dataType>select</dataType>
+                <label translate="true">Department</label>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+            </settings>
         </column>
-
-        <!-- Begin 5: Actions de colonnes(Editer et Supprimer) -->
         <!-- Action columns -->
         <actionsColumn name="actions" class="Training\Jobs\Ui\Component\Listing\Column\JobActions">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
-                    <item name="indexField" xsi:type="string">entity_id</item>
-                </item>
-            </argument>
+            <settings>
+                <indexField>entity_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
         </actionsColumn>
-        <!-- End 5: Actions de colonnes(Editer et Supprimer) -->
-
     </columns>
-    <!-- End 3: Création de nos colonnes -->
-
 </listing>

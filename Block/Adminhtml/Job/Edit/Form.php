@@ -112,10 +112,7 @@ class Form extends Generic
             ['name' => 'location', 'label' => __('Location'), 'title' => __('Location'), 'required' => true]
         );
 
-        // Date - Type date
-        if (!$model->getId()) {
-            $model->setDate(date('Y-m-d')); // Day date when adding a job
-        }
+     
         $fieldset->addField(
             'date',
             'date',

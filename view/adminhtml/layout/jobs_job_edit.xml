@@ -3,6 +3,7 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
+            <!-- <uiComponent name="jobs_job_form"/> -->
             <block class="Training\Jobs\Block\Adminhtml\Job\Edit" name="jobs_job_edit"/>
         </referenceContainer>
     </body>
