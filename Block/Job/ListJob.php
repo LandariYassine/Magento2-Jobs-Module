@@ -86,14 +86,16 @@ class ListJob extends Template
     {
         if ($this->_jobCollection === null) {
  
-            $jobCollection = $this->_job->getCollection()
-                ->addFieldToSelect('*')
-                ->addFieldToFilter('status', $this->_job->getEnableStatus())
-                ->join(
-                    array('department' => $this->_department->getResource()->getMainTable()),
-                    'main_table.department_id = department.'.$this->_job->getIdFieldName(),
-                    array('department_name' => 'name')
-                );
+            // $jobCollection = $this->_job->getCollection()
+            //     ->addFieldToSelect('*')
+            //     ->addFieldToFilter('status', $this->_job->getEnableStatus())
+            //     ->join(
+            //         array('department' => $this->_department->getResource()->getMainTable()),
+            //         'main_table.department_id = department.'.$this->_job->getIdFieldName(),
+            //         array('department_name' => 'name')
+            //     );
+
+            $jobCollection = $this->_job->getCollection()->addStatusFilter($this->_job, $this->_department);
  
             $this->_jobCollection = $jobCollection;
         }
