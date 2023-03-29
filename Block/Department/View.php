@@ -5,6 +5,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Training\Jobs\Model\Department;
 use Training\Jobs\Model\Job;
+use Magento\Store\Model\ScopeInterface;
 
 class View extends Template
 {
@@ -13,6 +14,8 @@ class View extends Template
     protected $_department;
  
     protected $_job;
+
+    const LIST_JOBS_ENABLED = 'jobs/department/view_list';
  
     /**
      * @param Context $context
@@ -126,5 +129,12 @@ class View extends Template
         }
  
         return $this->getUrl('jobs/job/view', ['id' => $job->getId()]);
+    }
+
+    public function getConfigListJobs() {
+        return $this->_scopeConfig->getValue(
+            self::LIST_JOBS_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
     }
 }

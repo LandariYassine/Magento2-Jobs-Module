@@ -12,6 +12,7 @@ use Training\Jobs\Model\Job;
 use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Config\Model\ResourceModel\Config;
 
 /**
  * @codeCoverageIgnore
@@ -22,10 +23,13 @@ class UpgradeData implements UpgradeDataInterface
     protected $_department;
     protected $_job;
 
-    public function __construct(Department $department, Job $job)
+    protected $_resourceConfig;
+
+    public function __construct(Department $department, Job $job, Config $resourceConfig)
     {
         $this->_department = $department;
         $this->_job = $job;
+        $this->_resourceConfig = $resourceConfig;
     }
 
     /**
@@ -122,6 +126,11 @@ class UpgradeData implements UpgradeDataInterface
             foreach ($jobs as $data) {
                 $this->_job->setData($data)->save();
             }
+        }
+
+        // Action to do if module version is less than 1.0.0.4
+        if (version_compare($context->getVersion(), '1.0.0.4') < 0) {
+            $this->_resourceConfig->saveConfig('jobs/department/view_list', 1, 'default', 0);
         }
 
         $installer->endSetup();
