@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <!-- un groupe de cron avec la configuration de la périodicité -->
+    <group id="training_jobs">
+        <job name="training_jobs_disable_jobs" instance="Training\Jobs\Cron\DisableJobs" method="execute">
+            <!-- Configuration expression -->
+            <config_path>jobs/cron/schedule</config_path>
+            <!--<schedule>*/5 * * * *</schedule>-->
+        </job>
+    </group>
+
+    <!-- un groupe de cron -->
+    <!-- <group id="training_jobs">
+        <job name="training_jobs_disable_jobs" instance="Training\Jobs\Cron\DisableJobs" method="execute"> -->
+    <!-- Every five minutes -->
+    <!-- <schedule>*/5 * * * *</schedule> -->
+    <!--<config_path>jobs/cron/schedule</config_path>-->
+    <!-- </job>
+    </group> -->
+
+    <!-- <group id="default">
+        <job name="training_jobs_disable_jobs" instance="Training\Jobs\Cron\DisableJobs" method="execute"> -->
+    <!-- Every five minutes -->
+    <!-- <schedule>*/5 * * * *</schedule> -->
+    <!--<config_path>jobs/cron/schedule</config_path>-->
+    <!-- </job>
+    </group> -->
+</config>
+

@@ -5,6 +5,10 @@
             <department>
                 <view_list>1</view_list>
             </department>
+            <cron>
+                <!-- Every day at midnight -->
+                <schedule>0 0 * * *</schedule>
+            </cron>
         </jobs>
     </default>
 </config>
