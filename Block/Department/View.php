@@ -5,6 +5,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Training\Jobs\Model\Department;
 use Training\Jobs\Model\Job;
+use Training\Jobs\Helper\Data;
 use Magento\Store\Model\ScopeInterface;
 
 class View extends Template
@@ -15,23 +16,27 @@ class View extends Template
  
     protected $_job;
 
-    const LIST_JOBS_ENABLED = 'jobs/department/view_list';
+    protected $_helper;
  
     /**
      * @param Context $context
      * @param Department $department
      * @param Job $job
+     * @param Data $helper  
      * @param array $data
      */
     public function __construct(
         Context $context,
         Department $department,
         Job $job,
+        Data $helper,
         array $data = []
     ) {
         $this->_department = $department;
  
         $this->_job = $job;
+
+        $this->_helper = $helper;
  
         parent::__construct(
             $context,
@@ -132,9 +137,7 @@ class View extends Template
     }
 
     public function getConfigListJobs() {
-        return $this->_scopeConfig->getValue(
-            self::LIST_JOBS_ENABLED,
-            ScopeInterface::SCOPE_STORE
-        );
+        //Appel a notre helper 
+        return $this->_helper->getListJobEnabled();
     }
 }
