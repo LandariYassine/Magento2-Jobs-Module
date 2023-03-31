@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxime\Jobs\Controller\Job;
+namespace Training\Jobs\Controller\Job;
 
 use Magento\Framework\App\Action\Action;
 
@@ -14,6 +14,7 @@ class Index extends Action
         $this->_view->getLayout()->initMessages();
         $this->_view->renderLayout();
     }
+}
 
     // With session 
 
@@ -45,4 +46,4 @@ class Index extends Action
     //     $this->_view->getLayout()->initMessages();
     //     $this->_view->renderLayout();
     // }
-}
+

@@ -12,7 +12,7 @@
 </page>
 
 <!-- Si vous désirez ajouter un CSS à toutes les pages de votre site, vous pouvez créer le fichier suivant :
-app/code/Maxime/Jobs/view/frontend/layout/default.xml
+app/code/Training/Jobs/view/frontend/layout/default.xml
 
 Le layout serait le suivant :
 
